@@ -90,10 +90,11 @@ In a sharded system following this model, blocks are valid when the transactions
 ### Challenges and Trade-offs
 #### Single-Shard Takeover Attack
 A problem in sharded blockchains is that each shard is now maintained by a much smaller number of nodes than the whole chain. It is thus theoretically much easier for an attacker to get hold of a sufficient majority in a single shard to manipulate data.
-This problem is known as the 1% attack, based on the assumption that in a 100-shard system it takes [1% of the networks](https://cosmos.network/whitepaper#appendix ) hash rate to dominate the shard.
+This problem is known as the `1%` attack, based on the assumption that in a `100` shard system it takes [1% of the networks](https://cosmos.network/whitepaper#appendix ) hash rate to dominate the shard.
 This problem can be mitigated by choosing validators for shards through random sampling and changing this sampling frequently. 
 Choosing and changing collators randomly is much easier in proof of stake-based systems, as collator nodes can just be randomly sampled from the set of validators that participate in staking. 
-Cross-Shard Communication
+
+#### Cross-Shard Communication
 Communication between shards has to be performed via the main chain. The difficulty, in this case, is to maintain the atomicity property of transactions.
 Let’s consider this issue focusing on digital assets, such as a token. Sharding must have a protocol for shards to interact and swap tokens. A simple protocol for two shards to send tokens amongst themselves can be thought of as a credit-debit system. The sending shard debits a cross-shard payment while the receiving shard credits the sending shard new tokens.
 The fundamental problem with sharding is that with non-overlapping validator sets is for the receiving shard to be sure the sending shard properly froze the debited funds.  For such a system to work each shard must have some basis for trusting other sending shards to properly debit cross-shard transfers. While this is not trust-minimizing, with public blockchains it is easy to tell if there has been a violation provided that copies of the shards exist independent from the validators, who themselves could cheat.
@@ -122,7 +123,7 @@ One important property of the THORChain sharding approach is that as the number 
 
 ### Performance Estimation
 THORChain requires a large number of validators, which are selected by bonding a minimum amount. The first cryptocurrency known to use masternodes was Dash [6]. Let’s use Dash to consider a preliminary performance estimation for the THORChain sharding approach. 
-In Dash, there are currently `4000` validators. With this many bonded validators, the THORChain algorithm could maintain 30 shards, assuming one-node validator sets. Since each validator need only validate three shards, this means bandwidth, space, and computational requirements are reduced by `90%`.
+In Dash, there are currently `4000` validators. With this many bonded validators, the THORChain algorithm could maintain `30` shards, assuming one-node validator sets. Since each validator need only validate three shards, this means bandwidth, space, and computational requirements are reduced by `90%`.
 For a cross-shard transfer to happen, a `2/3` majority would be needed from the sending shard and a transaction would be submitted to the receiving shard. Then the shared validators between the two shards would vote on whether to approve or deny the transfer. Afterward the second vote, there would be a waiting period where `2/3` of the validators on the receiving shard could vote to override an approval and burn the bonds of the shared validators. In either case, a `2/3` majority in the receiving shard would send a message to the sending shard the final status (accepted or declined). This `2/3` majority is not intended to due validation themselves but the intention is that enough time is given so that if anybody notices a discrepancy, the validators could be informed and look into this. Each of these voting mechanisms is meant to prevent the minting of tokens. Furthermore, the shared validators can earn a transaction fee by participating in cross-chain transfers incentivizing them to approve legitimate transfers.
 
 ### Trade-offs
