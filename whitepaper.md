@@ -1,6 +1,8 @@
 # Yggdrasil Protocol; Multi-Validator-Set Sharding
 
+
 ## A trust-minimized sharding protocol for multi-chain scalability on THORChain. 
+
 
 devs@thorchain.org
 V0.1.4 - July 2018
@@ -33,8 +35,6 @@ Conclusion
 References	
 
 
-
-
 ## Introduction
 
 ### Overview
