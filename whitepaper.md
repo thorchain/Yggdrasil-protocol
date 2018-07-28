@@ -22,8 +22,8 @@ The protocol exhibits safety with two levels of Byzantine resistance; supermajor
 
 Introduction	
 Overview	
-Sharding	
-Blockchain Scalability	
+[Sharding](https://github.com/thorchain/Yggdrasil-Protocol/blob/master/whitepaper.md#sharding)
+[Blockchain Scalability](https://github.com/thorchain/Yggdrasil-Protocol/blob/master/whitepaper.md#blockchain-scalability)
 Sharding Background	
 Challenges and Trade-offs	
 THORChain Sharding	
