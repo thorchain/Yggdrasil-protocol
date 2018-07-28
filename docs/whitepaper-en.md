@@ -4,6 +4,7 @@
 ## A trust-minimized sharding protocol for multi-chain scalability on THORChain. 
 
 
+
 devs@thorchain.org
 V0.1.4 - July 2018
 
@@ -70,6 +71,7 @@ Sharding is a technique common in distributed data management systems. In databa
 Sharding proposals for blockchains are similar in nature. The basic idea is dividing either transaction processing, global state or both into shards maintained by different sets of validators. A set of root validators typically synchs between shards. This process is illustrated in Figure 2.
 
 <img align="center" src="https://github.com/thorchain/Yggdrasil-Protocol/blob/master/docs/images/merkletrie.png" width="400" height="215" />
+
 _Figure: Sharding Concept_
 
 One of the first sharding proposals for modern blockchain was ELASTICO. Similar approaches, such as early sharding proposals for Bitcoin based on Merklix trees and Zillqua share the same property of only focusing on one of the two components: state or transactions. This means they either improve transaction throughput or a node’s storage requirements, but not both. 
@@ -101,7 +103,8 @@ In THORChain, each shard is maintained by multiple validator sets and each valid
 The number of shards in the system is defined as N. Each validator set is responsible for exactly three distinct shards. Let there be one validator set for each distinct set of three shards. Thus, the number of validator sets S necessary to cover N shards can be calculated as N choose 3.
 For cross-shard transfer to be confirmed two thirds of the validator sets covering them must agree.  For each validator set to be compensated, it can participate in validating individual shards and retain a block reward. The number of validator sets overlooking an arbitrary shard s is (N - 1) choose 2, which is equal to (N-1)(N-2)/2 and grows approximately as the square of N. Figure 3 shows an example of four shards being covered by four validator sets (4 choose 3 = 4).
 
-<img align="center" src="https://github.com/thorchain/Yggdrasil-Protocol/blob/master/docs/images/sharding.png" width="400" height="215" />
+<img align="right" src="https://github.com/thorchain/Yggdrasil-Protocol/blob/master/docs/images/sharding.png" width="400" height="215" />
+
 _Figure: Multi-Sharding Example_
 
 ### Cross-Shard Communication
