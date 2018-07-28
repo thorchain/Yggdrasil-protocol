@@ -9,11 +9,11 @@ V0.1.4 - July 2018
 
 ### Abstract 
 
-Current technology for public blockchains is limited in terms of horizontal scaling. Nodes generally maintain a full copy of the blockchain’s state and transaction history, limiting transaction throughput. 
-THORChain is highly-optimized blockchain with a focus on scalability. An efficient consensus algorithm based on practical Byzantine Fault Tolerance (pBFT) is combined with a multi-chain approach, in order to provide optimum transaction throughput. The THORChain multi-chain has n number of canonical chains with n discrete mem-pools, which are synced on a master chain.
-THORChain employs an entirely new byzantine resistant sharding mechanism for multi-chains with discrete mem-pools suitable for proof-of-stake based protocols. Each shard is randomly assigned and cross-validated by a group of Validator Sets, the Validating Group, requiring supermajority consensus for new blocks to be committed to canonical chains in the shard. The network can be sharded to an upper bound limited by a number of Validator Sets.  
-Shard consensus requires s validator sets to cross-validate in a validating group, with ⅔ s being byzantine resistant consensus. A validator set is composed of a number of validators. Validators are selected from a pool of online staked nodes. As a shard approaches saturation, it is split into several shards. Each validator set collects pending transactions from mem-pools they observe and proposes blocks to all canonical chains in their shards. 
-The protocol exhibits safety with two levels of Byzantine resistance; supermajority consensus in both the validator Sets and the validating Group but is vulnerable to plutocracy. This can be countered by minority-enabling economic incentives that prevent stake centralization and encourage a flat distribution of stake across all validators in each validator set. A solution to this is proposed in this paper and will be integrated into the economic model of THORChain to allow it to support multi-set sharding.
+>Current technology for public blockchains is limited in terms of horizontal scaling. Nodes generally maintain a full copy of the blockchain’s state and transaction history, limiting transaction throughput. 
+>THORChain is highly-optimized blockchain with a focus on scalability. An efficient consensus algorithm based on practical Byzantine Fault Tolerance (pBFT) is combined with a multi-chain approach, in order to provide optimum transaction throughput. The THORChain multi-chain has n number of canonical chains with n discrete mem-pools, which are synced on a master chain.
+>THORChain employs an entirely new byzantine resistant sharding mechanism for multi-chains with discrete mem-pools suitable for proof-of-stake based protocols. Each shard is randomly assigned and cross-validated by a group of Validator Sets, the Validating Group, requiring supermajority consensus for new blocks to be committed to canonical chains in the shard. The network can be sharded to an upper bound limited by a number of Validator Sets.  
+>Shard consensus requires s validator sets to cross-validate in a validating group, with ⅔ s being byzantine resistant consensus. A validator set is composed of a number of validators. Validators are selected from a pool of online staked nodes. As a shard approaches saturation, it is split into several shards. Each validator set collects pending transactions from mem-pools they observe and proposes blocks to all canonical chains in their shards. 
+>The protocol exhibits safety with two levels of Byzantine resistance; supermajority consensus in both the validator Sets and the validating Group but is vulnerable to plutocracy. This can be countered by minority-enabling economic incentives that prevent stake centralization and encourage a flat distribution of stake across all validators in each validator set. A solution to this is proposed in this paper and will be integrated into the economic model of THORChain to allow it to support multi-set sharding.
 
 
 
@@ -27,8 +27,9 @@ Overview
 [Sharding](#sharding)
   - Blockchain Scalability
   - Sharding Background	
-  - Challenges and Trade-offs	
-[THORChain Sharding](#THORChain-Sharding)
+  - Challenges and Trade-offs
+  
+[THORChain Sharding](#thorchain-sharding)
   - Algorithm	
   - Cross-Shard Communication	
   - Performance Estimation	
