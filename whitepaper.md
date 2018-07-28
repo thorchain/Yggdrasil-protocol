@@ -20,18 +20,21 @@ The protocol exhibits safety with two levels of Byzantine resistance; supermajor
 
 ## Overview
 
-Introduction	
-Overview	
+Introduction
+
+Overview
+
 [Sharding](#sharding)
-  -Blockchain Scalability
-  -Sharding Background	
-  -Challenges and Trade-offs	
+  - Blockchain Scalability
+  - Sharding Background	
+  - Challenges and Trade-offs	
 [THORChain Sharding](#THORChain-Sharding)
-  -Algorithm	
-  -Cross-Shard Communication	
-  -Performance Estimation	
-  -Trade-offs	
-[Conclusion](#Conclusion)	
+  - Algorithm	
+  - Cross-Shard Communication	
+  - Performance Estimation	
+  - Trade-offs	
+  
+[Conclusion](#conclusion)	
 
 
 
