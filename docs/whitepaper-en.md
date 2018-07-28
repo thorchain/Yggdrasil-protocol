@@ -60,7 +60,7 @@ Scaling is perhaps the most pressing concern for current blockchain technologies
 
 <img align="center" src="https://github.com/thorchain/Yggdrasil-Protocol/blob/master/docs/images/scalability-trilemma.png" width="400" height="215" />
 
-_Figure1 : Scalability Trilemma_ 
+_Figure 1 : Scalability Trilemma_ 
 
 This can be seen in third-generation blockchains focusing on scalability, such as [EOS](https://eos.io/ ) reducing the number of validators to a mere 21, thereby introducing a risk of centralization. 
 Scaling proposals can be classified into two categories:
@@ -75,7 +75,7 @@ Sharding proposals for blockchains are similar in nature. The basic idea is divi
 
 <img align="center" src="https://github.com/thorchain/Yggdrasil-Protocol/blob/master/docs/images/merkletrie.png" width="400" height="215" />
 
-_Figure: Sharding Concept_
+_Figure 2: Sharding Concept_
 
 One of the first sharding proposals for modern blockchain was ELASTICO [5]. Similar approaches, such as early sharding proposals for Bitcoin based on [Merklix trees](https://www.deadalnix.me/2016/11/06/using-merklix-tree-to-shard-block-validation/ )  and [Zillqua](https://docs.zilliqa.com/whitepaper.pdf ) share the same property of only focusing on one of the two components: state or transactions. This means they either improve transaction throughput or a node’s storage requirements, but not both. 
 [Ethereum’s sharding solution](https://github.com/ethereum/wiki/wiki/Sharding-FAQs ) is still in active research. However, the goal of Ethereum sharding is to shard state, as well as transaction processing. 
@@ -108,7 +108,7 @@ For cross-shard transfer to be confirmed two thirds of the validator sets coveri
 
 <img align="center" src="https://github.com/thorchain/Yggdrasil-Protocol/blob/master/docs/images/sharding.png" width="400" height="215" />
 
-_Figure: Multi-Sharding Example_
+_Figure 3: Multi-Sharding Example_
 
 ### Cross-Shard Communication
 The purpose of multiple shard assignments in THORChain is to prevent fraudulent cross-shard communication. As explained above, transferring assets across shards is akin to atomic debiting and crediting in the involved shards. For simplicity, let's consider `S_a` and `S_b` two be two arbitrary shards. 
@@ -121,7 +121,7 @@ The biggest risk in our sharding approach is a compromise of two thirds of the v
 One important property of the THORChain sharding approach is that as the number of shards grows, the number of validators required becomes relatively large. Because of this and the multi-shard overlap, the validator sets themselves can actually be quite small.  In fact, we can consider this algorithm as having validator sets with as few as one node each.
 
 ### Performance Estimation
-THORChain requires a large number of validators, which are selected by bonding a minimum amount. The first cryptocurrency known to use masternodes was Dash. Let’s use Dash to consider a preliminary performance estimation for the THORChain sharding approach. 
+THORChain requires a large number of validators, which are selected by bonding a minimum amount. The first cryptocurrency known to use masternodes was Dash [6]. Let’s use Dash to consider a preliminary performance estimation for the THORChain sharding approach. 
 In Dash, there are currently 4000 validators. With this many bonded validators, the THORChain algorithm could maintain 30 shards, assuming one-node validator sets. Since each validator need only validate three shards, this means bandwidth, space, and computational requirements are reduced by 90%.
 For a cross-shard transfer to happen, a 2/3 majority would be needed from the sending shard and a transaction would be submitted to the receiving shard. Then the shared validators between the two shards would vote on whether to approve or deny the transfer. Afterward the second vote, there would be a waiting period where 2/3 of the validators on the receiving shard could vote to override an approval and burn the bonds of the shared validators. In either case, a 2/3 majority in the receiving shard would send a message to the sending shard the final status (accepted or declined). This 2/3 majority is not intended to due validation themselves but the intention is that enough time is given so that if anybody notices a discrepancy, the validators could be informed and look into this. Each of these voting mechanisms is meant to prevent the minting of tokens. Furthermore, the shared validators can earn a transaction fee by participating in cross-chain transfers incentivizing them to approve legitimate transfers.
 
@@ -147,3 +147,5 @@ executes multiprocess programs. IEEE Trans. Computers, 28(9):690- 691.
 **[4]** Plasma: Scalable Autonomous Smart Contracts. Joseph Poon and Vitalik Buterin. 2017. https://plasma.io/plasma.pdf 
 
 **[5]** Loi Luu, Viswesh Narayanan, Chaodong Zheng, Kunal Baweja, Seth Gilbert, and Prateek Saxena. 2016. A Secure Sharding Protocol For Open Blockchains. In Proceedings of the 2016 ACM SIGSAC Conference on Computer and Communications Security (CCS '16). ACM, New York, NY, USA, 17-30. DOI: https://doi.org/10.1145/2976749.2978389
+
+**[6]** Evan Duffield, Daniel Diaz. Dash: A Privacy-Centric Crypto-Currency. https://github.com/dashpay/dash/wiki/Whitepaper 
