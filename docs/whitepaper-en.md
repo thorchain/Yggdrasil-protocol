@@ -45,29 +45,29 @@ Overview
 ### Overview
 
 
-Public blockchains traditionally scale very well in terms of the number of nodes supported. However, there generally are severe limitations in terms of transaction throughput scalability. Ethereum, for example, supports approximately 15 transactions per second. Considering that all transactions and their associated state changes have to be processed by all nodes, this limitation is not surprising. 
+Public blockchains traditionally scale very well in terms of the number of nodes supported. However, there generally are severe limitations in terms of transaction throughput scalability. [Ethereum]( https://www.ethereum.org/), for example, supports approximately 15 transactions per second. Considering that all transactions and their associated state changes have to be processed by all nodes, this limitation is not surprising. 
 Poor blockchain scalability in terms of transaction throughput is probably one of the two most limiting factors holding back the development of large-scale decentralized applications. The second factor, transaction cost, is related to transaction throughput, as cost should go down once transactions are not competing for scarce bandwidth.
 THORChain is a blockchain purposely built with scalability in mind and implements several measures to guarantee high transaction throughput. The main use case targeted by THORChain is the implementation of a decentralized cryptocurrency exchange.
-The platform architecture is based on a multi-chain solution, allowing multiple sidechains to settle on a root chain, called MerkleChain.  MerkleChain stores the root hashes of the sides chains’ transactions Merkle trees. Each sidechain represents a token, with a separate mempool. However, as all token chains share the same global address space, inter-side-chain communication is trivial, and transactions can always be found.
-Consensus in THORChain is achieved using a delegated Proof of Stake protocol with 100 validator nodes per validator set that reaches consensus using a pBFT voting protocol. Validator nodes are chosen according to the number of coins staked. Built-in reward and penalty mechanisms guarantee correct validator behavior at the protocol level. Malicious actors can also be evicted and replaced by a node from a queue of backup validators.
+The platform architecture is based on a multi-chain solution, allowing multiple sidechains to settle on a root chain, called MerkleChain.  MerkleChain stores the root hashes of the sides chains’ transactions [Merkle trees](https://en.wikipedia.org/wiki/Merkle_tree ). Each sidechain represents a token, with a separate mempool. However, as all token chains share the same global address space, inter-side-chain communication is trivial, and transactions can always be found.
+Consensus in THORChain is achieved using a delegated Proof of Stake protocol with 100 validator nodes per validator set that reaches consensus using a [pBFT voting protocol](http://pmg.csail.mit.edu/papers/osdi99.pdf )[1]. Validator nodes are chosen according to the number of coins staked. Built-in reward and penalty mechanisms guarantee correct validator behavior at the protocol level. Malicious actors can also be evicted and replaced by a node from a queue of backup validators.
 The focus of this paper is on sharding. Traditionally this method of scaling has received little attention due to its complexity and trustful nature of cross-shard transfers. Currently, only Ethereum and Cosmos appear to be pursuing similar solutions. That said, sharding is the only base-layer scaling solution which reduces the requirements of individual validators. The trust-full nature of sharding is that in cross-chain transfers it is not possible to be sure that the crediting and debiting of funds is done appropriately without validating other shards. While it is always safe to send tokens to another shard (worst case scenario is they don't credit it), receiving tokens from another shard risks inflating the overall money supply if they have not properly debited the sent tokens on their shard. In order to completely minimize trust, each validator must be responsible for every shard. Of course, this removes the benefits of sharding entirely. 
 We propose a solution that is a better balance between the fundamental trade-offs in sharding solutions. In what remains of this paper, we will provide some further background on blockchain scalability and sharding, before detailing THORChain’s approach. 
 
 
 ## Sharding 
 ### Blockchain Scalability
-Scaling is perhaps the most pressing concern for current blockchain technologies. Scalability involves a number of trade-offs. Ethereum’s co-founder Vitalik Buterin describes the scalability trade-off as a trilemma between scalability, security, and decentralization (Figure 1). This basically means, that in order to optimize a blockchain for scalability, either security or decentralization needs to be relaxed.
+Scaling is perhaps the most pressing concern for current blockchain technologies. Scalability involves a number of trade-offs. Ethereum’s co-founder Vitalik Buterin describes the scalability trade-off as a [trilemma](https://github.com/ethereum/wiki/wiki/Sharding-FAQ) between scalability, security, and decentralization (Figure 1). This basically means, that in order to optimize a blockchain for scalability, either security or decentralization needs to be relaxed.
 
 <img align="center" src="https://github.com/thorchain/Yggdrasil-Protocol/blob/master/docs/images/scalability-trilemma.png" width="400" height="215" />
 
-_Figure: Scalability Trilemma_ 
+_Figure1 : Scalability Trilemma_ 
 
-This can be seen in third-generation blockchains focusing on scalability, such as EOS reducing the number of validators to a mere 21, thereby introducing a risk of centralization. 
+This can be seen in third-generation blockchains focusing on scalability, such as [EOS](https://eos.io/ ) reducing the number of validators to a mere 21, thereby introducing a risk of centralization. 
 Scaling proposals can be classified into two categories:
-Off-chain scaling consists in second-layer solutions that execute a number of transactions off the blockchain and use the blockchain's ledger for occasional settlement. By doing so, the requirement for sequential consistency is relaxed. Bitcoin’s Lightning and Ethereum’s Raiden network fall into this category.
-On-chain scaling solutions may entail modifying the consensus protocol, such as THORChain’s own model, in which a number of validators are chosen from a pool of staking nodes to execute an efficient variant of the Practical Byzantine Fault Tolerance protocol to greatly improve transaction throughput and achieve very low-latency block finality. Other on-chain approaches include tweaking certain blockchain parameters, for example, Bitcoin Cash’s block size increase. 
-In between the two extremes are solutions that split up the blockchain into manageable pieces, in order to reduce the load on individual nodes. This split can be done vertically along application specific divides, as in the side-chain approach (Lisk, Plasma) or THORChain’s multi-chain solution. It can also be done horizontally, through sharding. 
-In what follows we describe the 
+Off-chain scaling consists in second-layer solutions that execute a number of transactions off the blockchain and use the blockchain's ledger for occasional settlement. By doing so, the requirement for sequential consistency [2] is relaxed. Bitcoin’s [Lightning](https://lightning.network/ ) and Ethereum’s [Raiden Network](https://raiden.network/ ) fall into this category.
+On-chain scaling solutions may entail modifying the consensus protocol, such as THORChain’s own model, in which a number of validators are chosen from a pool of staking nodes to execute an efficient variant of the Practical Byzantine Fault Tolerance [3] protocol to greatly improve transaction throughput and achieve very low-latency block finality. Other on-chain approaches include tweaking certain blockchain parameters, for example, Bitcoin Cash’s block size increase. 
+In between the two extremes are solutions that split up the blockchain into manageable pieces, in order to reduce the load on individual nodes. This split can be done vertically along application specific divides, as in the side-chain approach ([Lisk](https://lisk.io/), [Plasma](https://plasma.io/)[4]) or [THORChain’s multi-chain solution](). It can also be done horizontally, through sharding. 
+
 
 ### Sharding Background
 Sharding is a technique common in distributed data management systems. In databases, tables are split horizontally across rows into different shards. Different shards are stored by different nodes to spread the load.  
@@ -77,8 +77,8 @@ Sharding proposals for blockchains are similar in nature. The basic idea is divi
 
 _Figure: Sharding Concept_
 
-One of the first sharding proposals for modern blockchain was ELASTICO. Similar approaches, such as early sharding proposals for Bitcoin based on Merklix trees and Zillqua share the same property of only focusing on one of the two components: state or transactions. This means they either improve transaction throughput or a node’s storage requirements, but not both. 
-Ethereum’s sharding solution is still in active research. However, the goal of Ethereum sharding is to shard state, as well as transaction processing. 
+One of the first sharding proposals for modern blockchain was ELASTICO [5]. Similar approaches, such as early sharding proposals for Bitcoin based on [Merklix trees](https://www.deadalnix.me/2016/11/06/using-merklix-tree-to-shard-block-validation/ )  and [Zillqua](https://docs.zilliqa.com/whitepaper.pdf ) share the same property of only focusing on one of the two components: state or transactions. This means they either improve transaction throughput or a node’s storage requirements, but not both. 
+[Ethereum’s sharding solution](https://github.com/ethereum/wiki/wiki/Sharding-FAQs ) is still in active research. However, the goal of Ethereum sharding is to shard state, as well as transaction processing. 
 In a linked list of blocks is sequential. Splitting up a Blockchain into different shards requires a more hierarchical approach. A number of individual chains are created, one for each shard. In order to maintain the overall chain, these shards need to somehow connect to the main chain. 
 Ethereum introduces a hierarchy of four node types for this purpose:
 Super full-nodes maintain every collation and the main chain. They also integrate collations from different shards into main chain blocks.
@@ -90,7 +90,7 @@ In a sharded system following this model, blocks are valid when the transactions
 ### Challenges and Trade-offs
 #### Single-Shard Takeover Attack
 A problem in sharded blockchains is that each shard is now maintained by a much smaller number of nodes than the whole chain. It is thus theoretically much easier for an attacker to get hold of a sufficient majority in a single shard to manipulate data.
-This problem is known as the 1% attack, based on the assumption that in a 100-shard system it takes 1% of the networks hash rate to dominate the shard.
+This problem is known as the 1% attack, based on the assumption that in a 100-shard system it takes [1% of the networks](https://cosmos.network/whitepaper#appendix ) hash rate to dominate the shard.
 This problem can be mitigated by choosing validators for shards through random sampling and changing this sampling frequently. 
 Choosing and changing collators randomly is much easier in proof of stake-based systems, as collator nodes can just be randomly sampled from the set of validators that participate in staking. 
 Cross-Shard Communication
@@ -137,4 +137,9 @@ We have shown how the number of validator sets increases with the total of shard
 
 ## References
 
-
+[1] Miguel Castro and Barbara Liskov. 1999. Practical Byzantine fault tolerance. In Proceedings of the third symposium on Operating systems design and implementation (OSDI '99). USENIX Association, Berkeley, CA, USA, 173-186. http://pmg.csail.mit.edu/papers/osdi99.pdf 
+[2] Lamport, L. (1979). How to make a multiprocessor computer that correctly
+executes multiprocess programs. IEEE Trans. Computers, 28(9):690- 691.
+[3] Miguel Castro and Barbara Liskov. 1999. Practical Byzantine fault tolerance. In Proceedings of the third symposium on Operating systems design and implementation (OSDI '99). USENIX Association, Berkeley, CA, USA, 173-186
+[4] Plasma: Scalable Autonomous Smart Contracts. Joseph Poon and Vitalik Buterin. 2017. https://plasma.io/plasma.pdf 
+[5]Loi Luu, Viswesh Narayanan, Chaodong Zheng, Kunal Baweja, Seth Gilbert, and Prateek Saxena. 2016. A Secure Sharding Protocol For Open Blockchains. In Proceedings of the 2016 ACM SIGSAC Conference on Computer and Communications Security (CCS '16). ACM, New York, NY, USA, 17-30. DOI: https://doi.org/10.1145/2976749.2978389
