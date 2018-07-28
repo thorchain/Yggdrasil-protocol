@@ -54,7 +54,7 @@ We propose a solution that is a better balance between the fundamental trade-off
 ### Blockchain Scalability
 Scaling is perhaps the most pressing concern for current blockchain technologies. Scalability involves a number of trade-offs. Ethereum’s co-founder Vitalik Buterin describes the scalability trade-off as a trilemma between scalability, security, and decentralization (Figure 1). This basically means, that in order to optimize a blockchain for scalability, either security or decentralization needs to be relaxed.
 
-<img align="right" src="https://ipfs.infura.io/ipfs/QmPmJmDSjhKsWAPeJoZyh8isyJ8oQ3GYwZVqc6SZSoVgVR" width="228.395px" height="300px" />
+<img align="right" src="https://ipfs.infura.io/ipfs/QmPmJmDSjhKsWAPeJoZyh8isyJ8oQ3GYwZVqc6SZSoVgVR" />
 
 _Figure: Scalability Trilemma_ 
 
