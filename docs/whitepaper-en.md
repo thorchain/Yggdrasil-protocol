@@ -138,8 +138,12 @@ We have shown how the number of validator sets increases with the total of shard
 ## References
 
 [1] Miguel Castro and Barbara Liskov. 1999. Practical Byzantine fault tolerance. In Proceedings of the third symposium on Operating systems design and implementation (OSDI '99). USENIX Association, Berkeley, CA, USA, 173-186. http://pmg.csail.mit.edu/papers/osdi99.pdf 
+
 [2] Lamport, L. (1979). How to make a multiprocessor computer that correctly
 executes multiprocess programs. IEEE Trans. Computers, 28(9):690- 691.
+
 [3] Miguel Castro and Barbara Liskov. 1999. Practical Byzantine fault tolerance. In Proceedings of the third symposium on Operating systems design and implementation (OSDI '99). USENIX Association, Berkeley, CA, USA, 173-186
+
 [4] Plasma: Scalable Autonomous Smart Contracts. Joseph Poon and Vitalik Buterin. 2017. https://plasma.io/plasma.pdf 
+
 [5]Loi Luu, Viswesh Narayanan, Chaodong Zheng, Kunal Baweja, Seth Gilbert, and Prateek Saxena. 2016. A Secure Sharding Protocol For Open Blockchains. In Proceedings of the 2016 ACM SIGSAC Conference on Computer and Communications Security (CCS '16). ACM, New York, NY, USA, 17-30. DOI: https://doi.org/10.1145/2976749.2978389
